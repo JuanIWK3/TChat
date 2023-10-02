@@ -1,6 +1,5 @@
 import { trpc } from '@/utils/trpc';
 import { type Room } from '@prisma/client';
-import { Button } from '../ui/button';
 import { MessageContainer } from './message';
 import { SendMessageForm } from './send-message';
 
@@ -17,10 +16,8 @@ export const Chat = ({ room }: { room: Room }) => {
 
   return (
     <div className="flex-1 p-4">
-      <Button onClick={() => void refetch()}></Button>
-      <div className="">{}</div>
       <section className="flex h-full flex-col justify-end space-y-4 p-4">
-        <div className="flex flex-col space-y-4 overflow-y-auto">
+        <div className="flex flex-col space-y-4 overflow-y-auto pr-4">
           {messages?.items.map((item) => (
             <MessageContainer key={item.id} message={item} />
           ))}

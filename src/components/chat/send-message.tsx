@@ -68,7 +68,7 @@ export function SendMessageForm({}) {
   return (
     <Form {...form}>
       <form
-        onSubmit={void form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className=" flex w-full items-center justify-center gap-2"
       >
         <FormField
@@ -83,7 +83,7 @@ export function SendMessageForm({}) {
             </FormItem>
           )}
         />
-        <Button type="submit" variant={'ghost'}>
+        <Button variant={'ghost'}>
           <SendHorizontal />
         </Button>
       </form>
