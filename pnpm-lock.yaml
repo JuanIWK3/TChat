@@ -89,8 +89,8 @@ devDependencies:
     specifier: ^4.18.0
     version: 4.18.0(@tanstack/react-query@4.18.0)(react-dom@18.2.0)(react@18.2.0)
   '@types/node':
-    specifier: ^18.16.16
-    version: 18.16.16
+    specifier: ^20.8.0
+    version: 20.8.0
   '@types/react':
     specifier: ^18.2.8
     version: 18.2.8
@@ -1046,6 +1046,10 @@ packages:
 
   /@types/node@18.16.16:
     resolution: {integrity: sha512-NpaM49IGQQAUlBhHMF82QH80J08os4ZmyF9MkpCzWAGuOHqE4gTEbhzd7L3l5LmWuZ6E0OiC1FweQ4tsiW35+g==}
+    dev: true
+
+  /@types/node@20.8.0:
+    resolution: {integrity: sha512-LzcWltT83s1bthcvjBmiBvGJiiUe84NWRHkw+ZV6Fr41z2FbIzvc815dk2nQ3RAKMuN2fkenM/z3Xv2QzEpYxQ==}
     dev: true
 
   /@types/prop-types@15.7.5:
