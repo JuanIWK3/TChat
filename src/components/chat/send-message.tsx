@@ -1,11 +1,5 @@
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
-import { useRoomContext } from '@/contexts/room';
+import { Form } from '@/components/ui/form';
+import { useRoomContext } from '@/contexts/chat';
 import { trpc } from '@/utils/trpc';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SendHorizontal } from 'lucide-react';
@@ -66,27 +60,18 @@ export function SendMessageForm({}) {
     );
   }
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className=" flex w-full items-center justify-center gap-2"
-      >
-        <FormField
-          control={form.control}
-          name="text"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormControl className="">
-                <Input className="w-full" placeholder="Type here" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button variant={'ghost'}>
-          <SendHorizontal />
-        </Button>
-      </form>
-    </Form>
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className=" flex w-full items-center justify-center gap-2"
+    >
+      <Input
+        className="w-full"
+        placeholder="Type here"
+        {...form.register('text')}
+      />
+      <Button variant={'ghost'}>
+        <SendHorizontal />
+      </Button>
+    </form>
   );
 }

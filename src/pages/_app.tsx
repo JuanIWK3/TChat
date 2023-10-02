@@ -3,7 +3,7 @@ import type { Session } from 'next-auth';
 import { getSession, SessionProvider } from 'next-auth/react';
 import type { AppType } from 'next/app';
 import { trpc } from '@/utils/trpc';
-import { RoomProvider } from '@/contexts/room';
+import { ChatProvider } from '@/contexts/chat';
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -11,9 +11,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={pageProps.session}>
-      <RoomProvider>
+      <ChatProvider>
         <Component {...pageProps} />
-      </RoomProvider>
+      </ChatProvider>
     </SessionProvider>
   );
 };

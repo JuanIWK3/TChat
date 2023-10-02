@@ -1,6 +1,6 @@
 import { Chat } from '@/components/chat';
 import { Sidebar } from '@/components/sidebar';
-import { useRoomContext } from '@/contexts/room';
+import { useRoomContext } from '@/contexts/chat';
 import { signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 
@@ -36,7 +36,7 @@ export default function IndexPage() {
   return (
     <>
       <Head>
-        <title>Prisma Starter</title>
+        <title>TRPC Chat</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex h-screen">

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,7 +24,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { trpc } from '@/utils/trpc';
-import { FolderPlus } from 'lucide-react';
+import { PlusCircle } from 'lucide-react';
 
 export function CreateRoom({
   refetch: refetchRooms,
@@ -56,8 +55,8 @@ export function CreateRoom({
   return (
     <div className="text-center">
       <Dialog>
-        <DialogTrigger className="w-full flex items-center justify-center py-2">
-          <FolderPlus />
+        <DialogTrigger className="w-full  flex items-center justify-center py-2">
+          <PlusCircle />
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

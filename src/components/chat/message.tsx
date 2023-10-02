@@ -6,7 +6,6 @@ export const MessageContainer = ({ message }: { message: MessageWithUser }) => {
 
   return (
     <div
-      key={message.id}
       className={`flex flex-col border p-4 max-w-max rounded-md ${
         message.userId === session?.user?.id ? 'self-end' : ''
       }`}
