@@ -1,22 +1,19 @@
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
+import { useRoomContext } from '@/contexts/room';
 import { trpc } from '@/utils/trpc';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SendHorizontal } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { useRoomContext } from '@/contexts/room';
 
 export function SendMessageForm({}) {
   const { selectedRoom } = useRoomContext();
@@ -35,7 +32,7 @@ export function SendMessageForm({}) {
     try {
       await sendMessage.mutateAsync({
         text: values.text,
-        roomId: selectedRoom?.id as string,
+        roomId: selectedRoom?.id ?? '',
       });
     } catch {}
     console.log(values);
@@ -71,7 +68,7 @@ export function SendMessageForm({}) {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={void form.handleSubmit(onSubmit)}
         className=" flex w-full items-center justify-center gap-2"
       >
         <FormField

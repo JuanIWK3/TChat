@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
 /**
  *
  * This is an example router, you can delete this file and then update `../pages/api/trpc/[trpc].tsx`
  */
+import { type Message, type User } from '@prisma/client';
 import { observable } from '@trpc/server/observable';
 import { EventEmitter } from 'events';
-import { db } from '../db';
 import { z } from 'zod';
+import { db } from '../db';
 import { authedProcedure, publicProcedure, router } from '../trpc';
-import { type User, type Message } from '@prisma/client';
 
 interface MyEvents {
   add: (data: MessageWithUser) => void;
@@ -61,7 +60,7 @@ export const postRouter = router({
         roomId: z.string().uuid(),
       }),
     )
-    .query(async ({ input, ctx }) => {
+    .query(async ({ input }) => {
       const page = await db.message.findMany({
         orderBy: {
           createdAt: 'desc',

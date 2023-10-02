@@ -11,7 +11,12 @@ import superjson from 'superjson';
 // ℹ️ Type-only import:
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html#type-only-imports-and-export
 
-const { publicRuntimeConfig } = getConfig();
+const { publicRuntimeConfig } = getConfig() as {
+  publicRuntimeConfig: {
+    APP_URL: string;
+    WS_URL: string;
+  };
+};
 
 const { APP_URL, WS_URL } = publicRuntimeConfig;
 

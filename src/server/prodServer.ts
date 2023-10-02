@@ -6,7 +6,7 @@ import next from 'next';
 import { parse } from 'url';
 import ws from 'ws';
 
-const port = parseInt(process.env.PORT || '3000', 10);
+const port = parseInt(process.env.PORT ?? '3000', 10);
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -23,7 +23,7 @@ void app.prepare().then(() => {
       res.end();
       return;
     }
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     const parsedUrl = parse(req.url!, true);
     void handle(req, res, parsedUrl);
   });

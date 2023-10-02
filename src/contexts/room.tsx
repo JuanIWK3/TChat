@@ -1,5 +1,5 @@
-import { Room } from '@prisma/client';
-import { PropsWithChildren, createContext, useContext, useState } from 'react';
+import { type Room } from '@prisma/client';
+import { type PropsWithChildren, createContext, useContext, useState } from 'react';
 
 type RoomContextData = {
   selectedRoom: Room | null;

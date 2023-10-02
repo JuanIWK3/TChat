@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { authedProcedure, router } from '../trpc';
 import { db } from '../db';
+import { authedProcedure, router } from '../trpc';
 
 export const roomRouter = router({
   getAll: authedProcedure.query(async () => {
@@ -18,7 +18,7 @@ export const roomRouter = router({
         name: z.string().min(1),
       }),
     )
-    .mutation(async ({ input, ctx }) => {
+    .mutation(async ({ input }) => {
       const post = await db.room.create({
         data: {
           ...input,
