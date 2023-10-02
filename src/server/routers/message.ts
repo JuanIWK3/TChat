@@ -9,10 +9,10 @@ import { EventEmitter } from 'events';
 import { db } from '../db';
 import { z } from 'zod';
 import { authedProcedure, publicProcedure, router } from '../trpc';
-import { type Message } from '@prisma/client';
+import { type User, type Message } from '@prisma/client';
 
 interface MyEvents {
-  add: (data: Message) => void;
+  add: (data: MessageWithUser) => void;
 }
 declare interface MyEventEmitter {
   on<TEv extends keyof MyEvents>(event: TEv, listener: MyEvents[TEv]): this;
@@ -24,6 +24,10 @@ declare interface MyEventEmitter {
   ): boolean;
 }
 
+export type MessageWithUser = Message & {
+  user: User;
+};
+
 class MyEventEmitter extends EventEmitter {}
 
 // In a real app, you'd probably use Redis or something
@@ -33,8 +37,8 @@ export const postRouter = router({
   add: authedProcedure
     .input(
       z.object({
-        id: z.string().uuid().optional(),
         text: z.string().min(1),
+        roomId: z.string().uuid(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -43,29 +47,41 @@ export const postRouter = router({
           ...input,
           userId: ctx.user!.id,
         },
+        include: {
+          user: true,
+        },
       });
       ee.emit('add', post);
       return post;
     }),
 
-  infinite: publicProcedure.query(async () => {
-    const page = await db.message.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        user: true,
-      },
-    });
-    const items = page.reverse();
-    return {
-      items,
-    };
-  }),
+  get: publicProcedure
+    .input(
+      z.object({
+        roomId: z.string().uuid(),
+      }),
+    )
+    .query(async ({ input, ctx }) => {
+      const page = await db.message.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: {
+          user: true,
+        },
+        where: {
+          roomId: input.roomId,
+        },
+      });
+      const items = page.reverse();
+      return {
+        items,
+      };
+    }),
 
   onAdd: publicProcedure.subscription(() => {
-    return observable<Message>((emit) => {
-      const onAdd = (data: Message) => {
+    return observable<MessageWithUser>((emit) => {
+      const onAdd = (data: MessageWithUser) => {
         emit.next(data);
       };
       ee.on('add', onAdd);
